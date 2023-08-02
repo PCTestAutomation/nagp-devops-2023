@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Failed suite [TestSuite-Grouping]" guice-stage="DEVELOPMENT">
+  <test thread-count="5" name="Test(failed)">
+    <groups>
+      <run>
+        <include name="high"/>
+        <exclude name="low"/>
+      </run>
+    </groups>
+    <classes>
+      <class name="tests.HomePageTest">
+        <methods>
+          <include name="verifySignInLink"/>
+        </methods>
+      </class> <!-- tests.HomePageTest -->
+      <class name="tests.LoginPageTest">
+        <methods>
+          <include name="userSignUpScenario"/>
+        </methods>
+      </class> <!-- tests.LoginPageTest -->
+    </classes>
+  </test> <!-- Test(failed) -->
+</suite> <!-- Failed suite [TestSuite-Grouping] -->
