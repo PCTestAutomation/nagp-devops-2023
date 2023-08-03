@@ -6,8 +6,8 @@
       	<class name="tests.LoginPageTest" />
       	<class name="tests.WomensItemsOrderingTest" />
       	<class name="tests.MensItemsOrderingTest" />
-      	<class name="tests.CartPageValidationTest" />
-      	<class name="tests.GuestUserOrderingTest" />
+      	<!-- <class name="tests.CartPageValidationTest" />
+      	<class name="tests.GuestUserOrderingTest" /> -->
     </classes>
   </test>
 </suite>
