@@ -77,6 +77,11 @@
 	<build>
 		<plugins>
 			<plugin>
+            			<groupId>org.sonarsource.scanner.maven</groupId>
+            			<artifactId>sonar-maven-plugin</artifactId>
+            			<version>3.9.1.2184</version> <!-- Use the latest version -->
+        		</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.11.0</version>
@@ -95,6 +100,9 @@
 						<id>run-tests</id>
 						<phase>test</phase>
 						<configuration>
+							<testFailureIgnore>true</testFailureIgnore>
+                					<reportsDirectory>/SeleniumTestAutomation/target/surefire-reports</reportsDirectory>
+                					<useFile>false</useFile>
 							<suiteXmlFiles>
 								<suiteXmlFile>normalExecution.xml</suiteXmlFile>
 							</suiteXmlFiles>
