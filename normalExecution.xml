@@ -2,7 +2,7 @@
 <suite name="TestSuite-Normal">
   <test name="Test">
     <classes>
- 		    <class name="tests.HomePageTest" />
+      <class name="tests.HomePageTest" />
       	<class name="tests.LoginPageTest" />
       	<!--<class name="tests.WomensItemsOrderingTest" />
       	<class name="tests.MensItemsOrderingTest" />
