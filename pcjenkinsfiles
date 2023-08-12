@@ -1,1 +1,45 @@
-
+pipeline {
+    agent any
+    
+    stages {
+        stage('Code Checkout') {
+            steps {
+                // Checkout code from Git repository
+                checkout scm
+            }
+        }
+        
+        stage('Build & Test') {
+            steps {
+                // Build your application (e.g., compile code, package artifacts)
+                bat "mvn clean test"
+            }
+        }
+        
+        stage('Code Analysis') {
+            steps {
+                withSonarQubeEnv("sonar_local") {
+                   bat "mvn sonar:sonar"
+                }
+            }
+        }
+        
+        stage('Jfrog Artifactory') {
+            steps {
+                // Deploy your application (e.g., to a server, container, or cloud)
+                sh 'your-deployment-command-here'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // This block will be executed if the pipeline is successful
+            echo 'Pipeline successful! Congratulations!'
+        }
+        failure {
+            // This block will be executed if the pipeline fails
+            echo 'Pipeline failed! Check logs for details.'
+        }
+    }
+}
