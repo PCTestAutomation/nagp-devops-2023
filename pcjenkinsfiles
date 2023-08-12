@@ -1,37 +1,49 @@
 pipeline {
     agent any
-    
     stages {
         stage('Code Checkout') {
             steps {
-                // Checkout code from Git repository
-                checkout scm
+                git 'https://github.com/PCTestAutomation/nagp-devops-2023.git'
             }
         }
-        
+
         stage('Build & Test') {
             steps {
-                // Build your application (e.g., compile code, package artifacts)
-                bat "mvn clean test"
+                bat 'mvn clean test'
             }
         }
-        
+
         stage('Code Analysis') {
             steps {
-                withSonarQubeEnv("sonar_local") {
-                   bat "mvn sonar:sonar"
+                withSonarQubeEnv('nagp-devops-2023') {
+                    // Replace 'SonarQubeServer' with the name defined in Jenkins Global Tool Configuration.
+                    // This will use the appropriate SonarQube server settings for analysis.
+                    bat 'mvn sonar:sonar'
                 }
             }
         }
         
-        stage('Jfrog Artifactory') {
-            steps {
-                // Deploy your application (e.g., to a server, container, or cloud)
-                sh 'your-deployment-command-here'
+        stage("JFrog Artifactory"){
+        steps{
+              rtMavenDeployer(
+                  id: 'deployer',
+                  serverId:'devtestops@jfrogartifactory',
+                  releaseRepo:'devtestopsjfrogkey',
+                  snapshotRepo:'devtestopsjfrogkey',
+                )
+              rtMavenRun(
+                  pom: 'pom.xml',
+                  goals:'clean install',
+                  deployerId:'deployer'
+              )
+              rtPublishBuildInfo(
+                  serverId:'devtestops@jfrogartifactory',
+              )
             }
-        }
+              
+      }
     }
-    
+
     post {
         success {
             // This block will be executed if the pipeline is successful
